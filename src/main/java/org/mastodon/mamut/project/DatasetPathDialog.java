@@ -56,6 +56,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JSpinner;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
@@ -228,10 +230,16 @@ public class DatasetPathDialog extends JDialog
 		cancel.addActionListener( e -> close() );
 
 		dummy.addActionListener( e -> {
+			final DummyImageDataParams params = new DummyImageDataParams(owner);
+			if (!params.wasOkClosed) return;
+
 			rootPathTextField.setText( tellProjectPath( true ) );
-			xmlPathTextField.setText( "x=1000 y=1000 z=100 sx=1 sy=1 sz=10 t=400.dummy" );
+			xmlPathTextField.setText( "x=" + params.xSize
+					+ " y=" + params.ySize + " z=" + params.zSize
+					+ " sx=1 sy=1 sz=1 t=" + params.timePoints + ".dummy" );
 			storeAbsoluteCheckBox.setSelected( false );
 			storeAbsoluteCheckBox.setEnabled( false );
+			browseButton.setEnabled( false );
 			testButton.setEnabled( false );
 		} );
 
@@ -268,5 +276,79 @@ public class DatasetPathDialog extends JDialog
 	{
 		setVisible( false );
 		dispose();
+	}
+
+
+	static class DummyImageDataParams extends JDialog {
+		public DummyImageDataParams( final Frame owner ) {
+			super( owner, "Adjust Dummy Dataset Parameters", true );
+
+			final JPanel content = new JPanel();
+			content.setLayout( new GridBagLayout() );
+			content.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10 ) );
+
+			final GridBagConstraints c = new GridBagConstraints();
+			c.anchor = GridBagConstraints.LINE_START;
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.gridy = 0;
+
+			final JSpinner xSpinner  = new JSpinner( new SpinnerNumberModel(xSize,10,10000,100) );
+			final JSpinner ySpinner  = new JSpinner( new SpinnerNumberModel(ySize,10,10000,100) );
+			final JSpinner zSpinner  = new JSpinner( new SpinnerNumberModel(zSize,10,10000,100) );
+			final JSpinner tpSpinner = new JSpinner( new SpinnerNumberModel(timePoints,10,10000,100) );
+
+			c.gridx = 0;
+			content.add( new JLabel( "Size in pixels in X: " ), c );
+			c.gridx = 1;
+			content.add( xSpinner, c );
+
+			c.gridy++;
+			c.gridx = 0;
+			content.add( new JLabel( "Size in pixels in Y: " ), c );
+			c.gridx = 1;
+			content.add( ySpinner, c );
+
+			c.gridy++;
+			c.gridx = 0;
+			content.add( new JLabel( "Size in pixels in Z: " ), c );
+			c.gridx = 1;
+			content.add( zSpinner, c );
+
+			c.gridy++;
+			c.gridx = 0;
+			content.add( new JLabel( "Number of time points: " ), c );
+			c.gridx = 1;
+			content.add( tpSpinner, c );
+
+			c.gridy++;
+			c.gridx = 1;
+			final JButton ok = new JButton("OK");
+			ok.addActionListener( l -> {
+				xSize = (int)(xSpinner.getValue());
+				ySize = (int)(ySpinner.getValue());
+				zSize = (int)(zSpinner.getValue());
+				timePoints = (int)(tpSpinner.getValue());
+				wasOkClosed = true;
+				close();
+			} );
+			content.add( ok, c );
+
+			getContentPane().add( content );
+			pack();
+			setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
+			setVisible( true );
+		}
+
+		private void close()
+		{
+			setVisible( false );
+			dispose();
+		}
+
+		int xSize = 1000;
+		int ySize = 1000;
+		int zSize = 1000;
+		int timePoints = 1000;
+		boolean wasOkClosed = false;
 	}
 }
