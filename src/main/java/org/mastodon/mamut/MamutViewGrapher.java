@@ -248,6 +248,7 @@ public class MamutViewGrapher extends MamutView< DataGraph< Spot, Link >, DataVe
 						item( SelectionActions.SELECT_TRACK_DOWNWARD ),
 						item( SelectionActions.SELECT_TRACK_UPWARD ),
 						separator(),
+						item( EditTagActions.PICK_TAGS ),
 						tagSetMenu( tagSetMenuHandle ) ) );
 		appModel.getPlugins().addMenus( menu );
 

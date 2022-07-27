@@ -243,6 +243,7 @@ public class MamutViewTrackScheme extends MamutView< TrackSchemeGraph< Spot, Lin
 						item( TrackSchemeNavigationActions.NAVIGATE_RIGHT ),
 						separator(),
 						item( EditFocusVertexLabelAction.EDIT_FOCUS_LABEL ),
+						item( EditTagActions.PICK_TAGS ),
 						tagSetMenu( tagSetMenuHandle ) ) );
 		appModel.getPlugins().addMenus( menu );
 

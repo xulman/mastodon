@@ -84,7 +84,7 @@ import bdv.viewer.OverlayRenderer;
 public class EditTagActions< V extends Vertex< E >, E extends Edge< V > >
 		implements Runnable
 {
-	public static final String PICK_TAGS = "pick tags";
+	public static final String PICK_TAGS = "Assign Tags";
 
 	private static final String[] PICK_TAGS_KEYS = new String[] { "Y" };
 
