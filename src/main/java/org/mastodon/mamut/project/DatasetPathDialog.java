@@ -165,9 +165,11 @@ public class DatasetPathDialog extends JDialog
 		infoLine.add( new JLabel( "Save the project eventually to make the changes permanent." ) );
 
 		final JPanel buttons = new JPanel();
+		final JButton dummy = new JButton("I want dummy image data instead");
 		final JButton cancel = new JButton("Cancel");
 		final JButton ok = new JButton("OK");
 		buttons.setLayout( new BoxLayout( buttons, BoxLayout.LINE_AXIS ) );
+		buttons.add( dummy );
 		buttons.add( Box.createHorizontalGlue() );
 		buttons.add( cancel );
 		buttons.add( ok );
@@ -224,6 +226,14 @@ public class DatasetPathDialog extends JDialog
 		} );
 
 		cancel.addActionListener( e -> close() );
+
+		dummy.addActionListener( e -> {
+			rootPathTextField.setText( tellProjectPath( true ) );
+			xmlPathTextField.setText( "x=1000 y=1000 z=100 sx=1 sy=1 sz=10 t=400.dummy" );
+			storeAbsoluteCheckBox.setSelected( false );
+			storeAbsoluteCheckBox.setEnabled( false );
+			testButton.setEnabled( false );
+		} );
 
 		addWindowListener( new WindowAdapter()
 		{
