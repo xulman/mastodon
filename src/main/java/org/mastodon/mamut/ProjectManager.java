@@ -71,6 +71,7 @@ import org.mastodon.mamut.project.MamutProject;
 import org.mastodon.mamut.project.MamutProject.ProjectReader;
 import org.mastodon.mamut.project.MamutProject.ProjectWriter;
 import org.mastodon.mamut.project.MamutProjectIO;
+import org.mastodon.mamut.project.DatasetPathDialog;
 import org.mastodon.ui.coloring.feature.FeatureColorModeManager;
 import org.mastodon.ui.keymap.CommandDescriptionProvider;
 import org.mastodon.ui.keymap.CommandDescriptions;
@@ -500,9 +501,28 @@ public class ProjectManager
 					System.err.println( "Could not open image data file. " );
 					e.printStackTrace();
 				}
-				final DatasetInfoParser info = DatasetInfoParser.inspect( spimDataXmlFilename );
-				System.err.println( "Opening with dummy dataset. Please fix dataset path in the mastodon project file." );
-				spimData = info.toDummySpimData();
+
+				System.err.println( "====>> Problem opening the image data. Please fix dataset path in the mastodon project file." );
+				new DatasetPathDialog( null, project ).setVisible( true );
+
+				//try to parse the possibly fixed file path
+				final DatasetInfoParser info = DatasetInfoParser.inspect( project.getDatasetXmlFile().getAbsolutePath() );
+
+				//is the new file sensible?
+				if (info != DatasetInfoParser.dummyInfo) {
+					//yes -> try to open it again for real
+					open( project, restoreGUIState );
+					return;
+				}
+				//no -> continue with the dummy data
+
+				//dummy specified or take the default?
+				spimData = DummySpimData.tryCreate( project.getDatasetXmlFile().getName() );
+				if (spimData == null) {
+					//going for default...
+					System.err.println( "====>> Sorry, doesn't seem to get improved, will continue with default fake image data.");
+					spimData = info.toDummySpimData();
+				}
 			}
 		}
 
