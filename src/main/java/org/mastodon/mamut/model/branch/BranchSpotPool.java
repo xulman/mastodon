@@ -33,7 +33,7 @@ import org.mastodon.graph.ref.AbstractListenableVertexPool;
 import org.mastodon.mamut.model.Spot;
 import org.mastodon.pool.ByteMappedElement;
 import org.mastodon.pool.ByteMappedElementArray;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.IntAttribute;
 
 public class BranchSpotPool extends AbstractListenableVertexPool<
@@ -60,7 +60,7 @@ public class BranchSpotPool extends AbstractListenableVertexPool<
 	BranchSpotPool( final int initialCapacity, final RefPool< Spot > vertexPool )
 	{
 		super( initialCapacity, layout, BranchSpot.class,
-				SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+				MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 		this.vertexPool = vertexPool;
 		this.firstSpotId = new IntAttribute<>( layout.firstLinkedVertexId, this );
 		this.lastSpotId = new IntAttribute<>( layout.lastLinkedVertexId, this );

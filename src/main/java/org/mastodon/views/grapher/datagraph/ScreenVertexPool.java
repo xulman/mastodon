@@ -32,7 +32,7 @@ import org.mastodon.RefPool;
 import org.mastodon.pool.ByteMappedElement;
 import org.mastodon.pool.ByteMappedElementArray;
 import org.mastodon.pool.Pool;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.BooleanAttribute;
 import org.mastodon.pool.attributes.ByteAttribute;
 import org.mastodon.pool.attributes.DoubleAttribute;
@@ -68,7 +68,7 @@ public class ScreenVertexPool extends Pool< ScreenVertex, ByteMappedElement >
 	public ScreenVertexPool( final int initialCapacity, final RefPool< DataVertex > dataVertexPool )
 	{
 		super( initialCapacity, ScreenVertex.layout, ScreenVertex.class,
-				SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+				MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 		this.dataVertexPool = dataVertexPool;
 	}
 

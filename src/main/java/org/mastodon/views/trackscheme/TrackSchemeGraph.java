@@ -51,7 +51,7 @@ import org.mastodon.graph.ref.AbstractVertexPool.AbstractVertexLayout;
 import org.mastodon.graph.ref.GraphImp;
 import org.mastodon.pool.ByteMappedElement;
 import org.mastodon.pool.ByteMappedElementArray;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.BooleanAttribute;
 import org.mastodon.pool.attributes.DoubleAttribute;
 import org.mastodon.pool.attributes.IndexAttribute;
@@ -605,7 +605,7 @@ public class TrackSchemeGraph<
 		private TrackSchemeVertexPool( final int initialCapacity, final ModelGraphWrapper< ?, ? > modelGraphWrapper )
 		{
 			super( initialCapacity, vertexLayout, TrackSchemeVertex.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 			this.modelGraphWrapper = modelGraphWrapper;
 		}
 
@@ -637,7 +637,7 @@ public class TrackSchemeGraph<
 		private TrackSchemeEdgePool( final int initialCapacity, final TrackSchemeVertexPool vertexPool )
 		{
 			super( initialCapacity, edgeLayout, TrackSchemeEdge.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ), vertexPool );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ), vertexPool );
 			modelGraphWrapper = vertexPool.modelGraphWrapper;
 			vertexPool.linkEdgePool( this );
 		}

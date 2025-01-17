@@ -49,7 +49,7 @@ import org.mastodon.graph.ref.GraphImp;
 import org.mastodon.model.HasLabel;
 import org.mastodon.pool.ByteMappedElement;
 import org.mastodon.pool.ByteMappedElementArray;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.DoubleAttribute;
 import org.mastodon.pool.attributes.IndexAttribute;
 import org.mastodon.pool.attributes.IntAttribute;
@@ -440,7 +440,7 @@ public class DataGraph<
 		private DataVertexPool( final int initialCapacity, final ModelGraphWrapper< ?, ? > modelGraphWrapper )
 		{
 			super( initialCapacity, vertexLayout, DataVertex.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 			this.modelGraphWrapper = modelGraphWrapper;
 		}
 
@@ -471,7 +471,7 @@ public class DataGraph<
 		private DataEdgePool( final int initialCapacity, final DataVertexPool vertexPool )
 		{
 			super( initialCapacity, edgeLayout, DataEdge.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ), vertexPool );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ), vertexPool );
 			modelGraphWrapper = vertexPool.modelGraphWrapper;
 			vertexPool.linkEdgePool( this );
 		}

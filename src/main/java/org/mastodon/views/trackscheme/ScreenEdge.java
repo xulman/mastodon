@@ -35,7 +35,7 @@ import org.mastodon.pool.ByteMappedElementArray;
 import org.mastodon.pool.Pool;
 import org.mastodon.pool.PoolObject;
 import org.mastodon.pool.PoolObjectLayout;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.BooleanAttribute;
 import org.mastodon.pool.attributes.ByteAttribute;
 import org.mastodon.pool.attributes.DoubleAttribute;
@@ -93,7 +93,7 @@ public class ScreenEdge extends PoolObject< ScreenEdge, ScreenEdgePool, ByteMapp
 		public ScreenEdgePool( final int initialCapacity )
 		{
 			super( initialCapacity, layout, ScreenEdge.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 		}
 
 		@Override

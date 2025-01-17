@@ -33,7 +33,7 @@ import org.mastodon.pool.ByteMappedElementArray;
 import org.mastodon.pool.Pool;
 import org.mastodon.pool.PoolObject;
 import org.mastodon.pool.PoolObjectLayout;
-import org.mastodon.pool.SingleArrayMemPool;
+import org.mastodon.pool.MultiArrayMemPool;
 import org.mastodon.pool.attributes.DoubleAttribute;
 import org.mastodon.views.trackscheme.ScreenVertexRange.ScreenVertexRangePool;
 
@@ -70,7 +70,7 @@ public class ScreenVertexRange extends PoolObject< ScreenVertexRange, ScreenVert
 		public ScreenVertexRangePool( final int initialCapacity )
 		{
 			super( initialCapacity, layout, ScreenVertexRange.class,
-					SingleArrayMemPool.factory( ByteMappedElementArray.factory ) );
+					MultiArrayMemPool.factory( ByteMappedElementArray.factory ) );
 		}
 
 		@Override
