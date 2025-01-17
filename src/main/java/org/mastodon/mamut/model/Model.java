@@ -104,7 +104,7 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 
 	private final ReentrantReadWriteLock lock;
 
-	private final GraphUndoRecorder< Spot, Link > undoRecorder;
+	//private final GraphUndoRecorder< Spot, Link > undoRecorder;
 
 	private final FeatureModel featureModel;
 
@@ -171,6 +171,7 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 					}
 				}.getEdgeIdLabelSets() );
 
+		/*
 		undoRecorder = new GraphUndoRecorder<>(
 				initialCapacity,
 				modelGraph,
@@ -183,6 +184,7 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 		final Recorder< DefaultTagSetModel.SetTagSetStructureUndoableEdit > recorder =
 				undoRecorder.createGenericUndoableEditRecorder();
 		tagSetModel.setUndoRecorder( recorder );
+		*/
 	}
 
 	/**
@@ -274,6 +276,7 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 
 	public void undo()
 	{
+		/*
 		lock.writeLock().lock();
 		try
 		{
@@ -284,10 +287,12 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 		{
 			lock.writeLock().unlock();
 		}
+		*/
 	}
 
 	public void redo()
 	{
+		/*
 		lock.writeLock().lock();
 		try
 		{
@@ -298,22 +303,23 @@ public class Model extends AbstractModel< ModelGraph, Spot, Link > implements Un
 		{
 			lock.writeLock().unlock();
 		}
+		*/
 	}
 
 	@Override
 	public void setUndoPoint()
 	{
-		undoRecorder.setUndoPoint();
+		//undoRecorder.setUndoPoint();
 	}
 
 	public void setSavePoint()
 	{
-		undoRecorder.setSavePoint();
+		//undoRecorder.setSavePoint();
 	}
 
 	public boolean isSavePoint()
 	{
-		return undoRecorder.isSavePoint();
+		return true; //undoRecorder.isSavePoint();
 	}
 
 	public ModelBranchGraph getBranchGraph()
